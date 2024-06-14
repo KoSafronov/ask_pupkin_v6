@@ -1,0 +1,41 @@
+{% load static%}
+
+<nav aria-label="Page navigation example" style="margin-bottom: 50px; max-width: 540px;">
+    <ul class="pagination justify-content-left text-body">
+        <!--
+        <li class="page-item disabled ">        </li>
+        -->
+        {% if page_obj.has_previous%}
+        <li class="page-item page-link">
+            <a href="?page=1">First</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="{% url "hot_questions" %}?page={{page_obj.previous_page_number}}">&laquo;</a>
+        </li>
+
+                <li class="page-item page-link">...</li>
+        {% endif %}
+
+
+
+        <li class="page-item page-link">{{page_obj.number}}</li>
+
+
+
+        {% if page_obj.has_next%}
+        <li class="page-item page-link">...</li>
+        <li class="page-item">
+            <a class="page-link" href="{% url "hot_questions" %}?page={{page_obj.next_page_number}}">&raquo;</a>
+        </li>
+
+        <!--
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages}}">Last</a>
+
+        </li>
+        -->
+        {% endif %}
+
+
+    </ul>
+</nav>

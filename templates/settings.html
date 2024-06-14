@@ -1,0 +1,94 @@
+{% extends "layouts/base.html" %}
+{% load bootstrap4 %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% load static %}
+
+
+
+
+{% block content %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <div class="container">
+        <div class="d-flex gap-3 align-items-center">
+            <h2>Settings: </h2>
+            <i><h2>{{ request.user.username }}</h2></i>
+        </div>
+
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group row">
+                <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-5">
+                    <input type="email" name="email" class="form-control" id="inputEmail"
+                           placeholder="dr.pepper@mail.ru" value="{{ request.user.email }}">
+
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="inputNickName" class="col-sm-2 col-form-label">NickName</label>
+
+                <div class="col-sm-5">
+                    <input type="text" name="username" class="form-control" id="inputUsername"
+                           placeholder="Dr.Perpper" value="{{ request.user.username }}">
+                </div>
+
+            </div>
+
+
+            <div class="form-group row">
+                <label for="formFile" class="col-sm-2 col-form-label">Upload avatar</label>
+
+                <div class="col-sm-5 mb-3">
+
+
+                    <div class="account__image" style="margin-right: 5px;">
+
+                        <img src="{{ request.user.profile.avatar.url }}" alt="avatar" width="100"
+                             height="100"
+                             class="rounded-circle">
+
+                    </div>
+
+
+                    <input class="form-control form-label-" name="avatar" type="file"
+                           id="formFile">{{ form.Profile.avatar }}
+
+
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+
+        {% if form.errors %}
+            <div class="alert alert-danger mt-3">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+
+
+
+
+{% endblock %}
+
+
+

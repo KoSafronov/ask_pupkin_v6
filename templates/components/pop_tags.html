@@ -1,0 +1,12 @@
+
+<div class="mt-4">
+    <h2>Popular Tags</h2>
+    <div>
+        {% for tag in pop_tags %}
+            <b><a href="{% url "tag" tag %}" class="tag">{{ tag }}</a></b><br>
+        {% endfor %}
+    </div>
+</div>
+
+
+
