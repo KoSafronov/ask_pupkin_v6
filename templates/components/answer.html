@@ -1,0 +1,275 @@
+{% load static %}
+{#<answer class="card mt-3">#}
+{#    <div class="row g-0">#}
+{#        <div class="col-auto p-4">#}
+{#            <div class="mb-3" style="width: 64px; height: 64px; margin: auto;">#}
+{#                <img src="{{ item.user.profile.avatar.url }}" class="img-fluid rounded-circle" alt="avatar" />#}
+{#                <img src="{{ item.user.profile.avatar.url }}" class="img-fluid" alt="avatar"/>#}
+{#            </div>#}
+{#            <div class="d-flex">#}
+{#                <button type="button" class="upvote bi bi-arrow-up-short btn btn-sm btn-light fs-5 p-0"#}
+{#                        data-action="upvote">#}
+{#                    <img src="{% static "svg/like.svg" %}" width="25" height="25" alt="arrow up"/>#}
+{#                </button>#}
+{#                <div class="ms-2 me-2" style="display: flex; align-items: center; font-size: 18px; font-weight: 500;">#}
+{#                    <span class="score" data-component="answer"#}
+{#                          data-component-id="{{ item.id }}">{{ item.score }}</span>#}
+{#                </div>#}
+{#                <button type="button" class="downvote bi bi-arrow-down-short btn btn-sm btn-light fs-5 p-0"#}
+{#                        data-action="downvote">#}
+{#                    <img src="{% static "svg/dislike.svg" %}" width="25" height="25" alt="arrow down"/>#}
+{#                </button>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card-body ps-0" id="{{ item.id }}">#}
+{#                <p class="card-text">{{ item.content }}</p>#}
+{#                <div class="form-check">#}
+{#                    {% if request.user == item.user %}#}
+{#                        {% if item.is_correct %}#}
+{#                            <input class="form-check-input answer-checkbox" type="checkbox"#}
+{#                                   data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}" checked>#}
+{#                        {% else %}#}
+{#                            <input class="form-check-input answer-checkbox" type="checkbox"#}
+{#                                   data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}">#}
+{#                        {% endif %}#}
+{#                    {% else %}#}
+{#                        {% if item.is_correct %}#}
+{#                            <input class="form-check-input answer-checkbox" type="checkbox"#}
+{#                                   data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}" checked disabled>#}
+{#                        {% else %}#}
+{#                            <input class="form-check-input answer-checkbox" type="checkbox"#}
+{#                                   data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}" disabled>#}
+{#                        {% endif %}#}
+{#                    {% endif %}#}
+{#                    <label class="form-check-label text-body-secondary" for="answer-{{ item.id }}">correct</label>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</answer>#}
+
+
+{#<answer class="card mt-3">#}
+{#    <div class="row g-0">#}
+{#        <div class="col-auto p-4">#}
+{#            <div class="mb-3" style="width: 64px; height: 64px; margin: auto;">#}
+{#                <img src="{{ item.user.profile.avatar.url }}" class="img-fluid rounded-circle" alt="avatar" />#}
+{#                <img src="{{ item.user.profile.avatar.url }}" class="img-fluid" alt="avatar" />#}
+{#            </div>#}
+{#            <div class="d-flex">#}
+{#                <button type="button" class="upvote bi bi-arrow-up-short btn btn-sm btn-light fs-5 p-0" data-action="upvote">#}
+{#                    <img src="{% static "svg/like.svg" %}" width="25" height="25" alt="arrow up" />#}
+{#                </button>#}
+{#                <div class="ms-2 me-2" style="display: flex; align-items: center; font-size: 18px; font-weight: 500;">#}
+{#                    <span class="score" data-component="answer" data-component-id="{{ item.id }}">{{ item.score }}</span>#}
+{#                </div>#}
+{#                <button type="button" class="downvote bi bi-arrow-down-short btn btn-sm btn-light fs-5 p-0" data-action="downvote">#}
+{#                    <img src="{% static "svg/dislike.svg" %}" width="25" height="25" alt="arrow down" />#}
+{#                </button>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <div class="card-body ps-0" id="{{ item.id }}">#}
+{#                <p class="card-text">{{ item.content }}</p>#}
+{#                <div class="form-check">#}
+{#                    {% if request.user == item.user %}#}
+{#                        {% if item.is_correct %}#}
+{#                            <input class="form-check-input answer-checkbox" type="checkbox" data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}" checked>#}
+{#                        {% else %}#}
+{#                            <input class="form-check-input answer-checkbox" type="checkbox" data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}">#}
+{#                        {% endif %}#}
+{#                    {% else %}#}
+{#                        {% if item.is_correct %}#}
+{#                            <input class="form-check-input answer-checkbox" type="checkbox" data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}" checked disabled>#}
+{#                        {% else %}#}
+{#                            <input class="form-check-input answer-checkbox" type="checkbox" data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}" disabled>#}
+{#                        {% endif %}#}
+{#                    {% endif %}#}
+{#                    <label class="form-check-label text-body-secondary" for="answer-{{ item.id }}">correct</label>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</answer>#}
+
+
+{#<hr>#}
+{#<answer class="card mt-3 mb-3">#}
+{#    <div class="answer qa-item" data-id="{{ item.id }}">#}
+{#        <div class="row g-0">#}
+{#            <div class="col-auto p-4">#}
+{#                <div class="mb-3" style="width: 64px; height: 64px; margin: auto;">#}
+{#                    <img src="{{ item.user.profile.avatar.url }}" class="img-fluid" alt="avatar"/>#}
+{#                </div>#}
+{#                <form class="like-form" action="{% url 'like' 'answer' item.id %}" method="post">#}
+{#                    {% csrf_token %}#}
+{#                    <input type="hidden" name="component" value="answer">#}
+{#                    <input type="hidden" name="component_id" value="{{ item.id }}">#}
+{#                    <input type="hidden" name="action" value="upvote">#}
+{#                    <button name="upvote" type="submit" class="bi bi-arrow-up-short btn btn-sm btn-light fs-5 p-0"#}
+{#                            data-action="upvote">#}
+{#                        <img src="{% static "svg/like.svg" %}" width="25" height="25" alt="like"/>#}
+{#                    </button>#}
+{#                </form>#}
+{#                <p>Likes: <span class="like-score">{{ item.score }}</span></p>#}
+{##}
+{#            </div>#}
+{#            <div class="col-auto p-4">#}
+{#                <p>{{ item.content }}</p>#}
+{##}
+{##}
+{#                <div class="form-check">#}
+{#                    {% if request.user == item.user %}#}
+{#                        {% if item.is_correct %}#}
+{#                            <input class="form-check-input answer-checkbox" type="checkbox"#}
+{#                                   data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}" checked>#}
+{#                        {% else %}#}
+{#                            <input class="form-check-input answer-checkbox" type="checkbox"#}
+{#                                   data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}">#}
+{#                        {% endif %}#}
+{#                    {% else %}#}
+{#                        {% if item.is_correct %}#}
+{#                            <input class="form-check-input answer-checkbox" type="checkbox"#}
+{#                                   data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}" checked disabled>#}
+{#                        {% else %}#}
+{#                            <input class="form-check-input answer-checkbox" type="checkbox"#}
+{#                                   data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}" disabled>#}
+{#                        {% endif %}#}
+{#                    {% endif %}#}
+{#                    <label class="form-check-label text-body-secondary" for="answer-{{ item.id }}">correct</label>#}
+{#                </div>#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</answer>#}
+{#<hr>#}
+
+
+
+
+
+<answer class="card mt-3 mb-3">
+        <div class="answer qa-item" data-id="{{ item.id }}">
+            <div class="row g-0">
+                <div class="col-auto p-4">
+                    <div class="mb-3" style="width: 64px; height: 64px; margin: auto;">
+                        <img src="{{ item.user.profile.avatar.url }}" class="img-fluid" alt="avatar"/>
+                    </div>
+                    <form class="like-form" action="{% url 'like' 'answer' item.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="component" value="answer">
+                        <input type="hidden" name="component_id" value="{{ item.id }}">
+                        <input type="hidden" name="action" value="upvote">
+                        <button name="upvote" type="submit" class="bi bi-arrow-up-short btn btn-sm btn-light fs-5 p-0"
+                                data-action="upvote">
+                            <img src="{% static 'svg/like.svg' %}" width="25" height="25" alt="like"/>
+                        </button>
+                    </form>
+                    <p>Likes: <span class="like-score">{{ item.score }}</span></p>
+                </div>
+                <div class="col-auto p-4">
+                    <p>{{ item.content }}</p>
+                    <div class="form-check">
+                        {% if request.user == item.question.user %}
+                            <input class="form-check-input answer-checkbox" type="checkbox"
+                                   data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}"
+                                   {% if item.is_correct %} checked {% endif %}>
+                        {% else %}
+                            <input class="form-check-input answer-checkbox" type="checkbox"
+                                   data-answer-id="{{ item.id }}" value="" id="answer-{{ item.id }}"
+                                   {% if item.is_correct %} checked {% endif %} disabled>
+                        {% endif %}
+                        <label class="form-check-label text-body-secondary" for="answer-{{ item.id }}">correct</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </answer>
+    <script>
+        const correctUrl = "{% url 'correct' %}";
+    </script>
+<script src="{% static 'js/correct_answer.js' %}"></script>
+
+
+{##}
+{#<answer class="card mt-3 mb-3">#}
+{##}
+{##}
+{#    <div class="row g-0">#}
+{#        <div class="col-auto p-4">#}
+{#            <div class="mb-3" style="width: 64px; height: 64px; margin: auto;">#}
+{##}
+{##}
+{#                <div class="answer" data-id="{{ item.id }}">#}
+{##}
+{#                    <div class="mb-3" style="width: 64px; height: 64px; margin: auto;">#}
+{#                        <img src="{{ item.user.profile.avatar.url }}" class="img-fluid" alt="avatar"/>#}
+{#                    </div>#}
+{#                    <p>{{ item.content }}</p>#}
+{#                    <form class="like-form" action="{% url 'like' 'answer' item.id %}" method="post">#}
+{#                        {% csrf_token %}#}
+{#                        <input type="hidden" name="component" value="answer">#}
+{#                        <input type="hidden" name="component_id" value="{{ item.id }}">#}
+{#                        <input type="hidden" name="action" value="upvote">#}
+{#                        <button name="upvote" type="submit" class="bi bi-arrow-up-short btn btn-sm btn-light fs-5 p-0"#}
+{#                                data-action="upvote">#}
+{#                            <img src="{% static "svg/like.svg" %}" width="25" height="25" alt="like"/>#}
+{#                        </button>#}
+{#                    </form>#}
+{#                    <p>Likes: <span class="like-score">{{ item.score }}</span></p>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</answer>#}
+
+
+{#    <div class="answer" data-id="{{ item.id }}">#}
+{#        <p>{{ item.content }}</p>#}
+{#        <form class="like-form" action="{% url 'like' 'answer' item.id %}" method="post">#}
+{#            {% csrf_token %}#}
+{#            <input type="hidden" name="component" value="answer">#}
+{#            <input type="hidden" name="component_id" value="{{ item.id }}">#}
+{#            <input type="hidden" name="action" value="upvote">#}
+{#            <button name="upvote" type="submit" class="bi bi-arrow-up-short btn btn-sm btn-light fs-5 p-0" data-action="upvote">#}
+{#                <img src="{% static "svg/like.svg" %}" width="25" height="25" alt="like"/>#}
+{#            </button>#}
+{#        </form>#}
+{#        <p>Likes: <span class="like-score">{{ item.score }}</span></p>#}
+{#    </div>#}
+
+
+{#<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
+{#<script>#}
+{#    $(document).ready(function () {#}
+{#        var isRequestPending = false;#}
+{#        $('.like-form').on('submit', function (event) {#}
+{#            event.preventDefault();#}
+{#            if (isRequestPending) return;#}
+{##}
+{#            var $form = $(this);#}
+{#            isRequestPending = true;#}
+{##}
+{#            $.ajax({#}
+{#                type: $form.attr('method'),#}
+{#                url: $form.attr('action'),#}
+{#                data: $form.serialize(),#}
+{#                success: function (response) {#}
+{#                    var $answerDiv = $form.closest('.answer');#}
+{#                    $answerDiv.find('.like-score').text(response.rating);#}
+{#                    isRequestPending = false;#}
+{#                },#}
+{#                error: function (response) {#}
+{#                    alert('Error: ' + response.responseJSON.error);#}
+{#                    isRequestPending = false;#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    });#}
+{#</script>#}

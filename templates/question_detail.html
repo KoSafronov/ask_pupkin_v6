@@ -1,0 +1,29 @@
+{%extends "layouts/base.html"%}
+{% load static%}
+
+{% block content %}
+
+
+<div class="col-md-8">
+    <div class="d-flex gap-3 align-items-center" style="margin-bottom: 10px; max-width: 540px;">
+        <h2>Questions</h2>
+    </div>
+
+    {%include "layouts/question.html" with item=question%}
+    <hr>
+
+
+    {% include "layouts/answer.html"%}
+    {% include "layouts/answer.html"%}
+    {% include "layouts/answer.html"%}
+</div>
+<nav aria-label="Page navigation example" style="margin-bottom: 50px; max-width: 540px;">
+    <ul class="pagination justify-content-left text-body">
+        <li class="page-item disabled ">
+
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+
+    </ul>
+</nav>
+{% endblock %}

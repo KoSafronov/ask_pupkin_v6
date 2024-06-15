@@ -1,0 +1,179 @@
+{%extends "layouts/base.html"%}
+{% load static%}
+
+
+{% block content%}
+{#<div class="col-md-8 ">#}
+{#    <div class="d-flex gap-3 align-items-center">#}
+{#        <h2>New Question</h2>#}
+{#    </div>#}
+{#    <div class="container text-center">#}
+{#        <br>#}
+{#        <div class="row">#}
+{#            <div class="col-md-2">#}
+{#                Title#}
+{#            </div>#}
+{#            <div class="col-md-10">#}
+{#                <form method="post">#}
+{#                    {% csrf_token %}#}
+{#                    <div class="form-group">#}
+{#                        <input type="text" class="form-control" id="formGroupExampleInput"#}
+{#                               placeholder="How to build a moon park?">#}
+{#                    </div>#}
+{#                </form>#}
+{#            </div>#}
+{#        </div>#}
+{#        <br>#}
+{#        <div class="row">#}
+{#            <div class="col-md-2">#}
+{#                Text#}
+{#            </div>#}
+{#            <div class="col-md-10">#}
+{#                <form method="post">#}
+{#                    <div class="form-group">#}
+{#                                <textarea placeholder="Really, how? I have no idea about it" rows="10"#}
+{#                                          id="formGroupExampleInput"#}
+{#                        <input type="text" class="form-control"#}
+{#                               placeholder="Really, how? I have no idea about it"#}
+{#                        >#}
+{#                        </textarea>#}
+{#                    </div>#}
+{#                </form>#}
+{#            </div>#}
+{#        </div>#}
+{#        <br>#}
+{#        <div class="row">#}
+{#            <div class="col-md-2">#}
+{#                Tags#}
+{#            </div>#}
+{#            <div class="col-md-10">#}
+{#                <form method="post">#}
+{#                    <div class="form-group">#}
+{#                        <input type="text" class="form-control" id="formGroupExampleInput"#}
+{#                               placeholder="moon, park, puzzle">#}
+{#                    </div>#}
+{#                </form>#}
+{#            </div>#}
+{#        </div>#}
+{#        <br>#}
+{#        <div class="row">#}
+{#            <div class="col-md-2">#}
+{##}
+{#            </div>#}
+{#            <div class="col-md-10 ml-auto d-flex align-self-start">#}
+{#                <button type="button" class="btn btn-outline-dark ">ASK!</button>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#        <br>#}
+{#    </div>#}
+{##}
+{#</div>#}
+{##}
+{##}
+{##}
+{##}
+{#<hr>#}
+{#    <hr>#}
+
+
+<div class="col-md-8 ">
+    <div class="d-flex gap-3 align-items-center">
+        <h2>New Question</h2>
+    </div>
+    <div class="container text-center">
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-2">Title</div>
+                <div class="col-md-10">
+                    <div class="form-group">
+                        {{ form.title }}
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">Text</div>
+                <div class="col-md-10">
+                    <div class="form-group">
+                        {{ form.content }}
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">Tags</div>
+                <div class="col-md-10">
+                    <div class="form-group">
+                        {{ form.tags }}
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10 ml-auto d-flex align-self-start">
+                    <button type="submit" class="btn btn-outline-dark">ASK!</button>
+                </div>
+            </div>
+            <br>
+        </form>
+    </div>
+</div>
+
+
+
+
+    <hr>
+
+{##}
+{#    <div class="col-md-8">#}
+{#    <div class="d-flex gap-3 align-items-center">#}
+{#        <h2>New Question</h2>#}
+{#    </div>#}
+{#    <div class="container text-center">#}
+{#        <br>#}
+{#        <form method="post">#}
+{#            {% csrf_token %}#}
+{#            <div class="row mb-3">#}
+{#                <label for="{{ form.title.id_for_label }}" class="col-md-2 col-form-label">Title</label>#}
+{#                <div class="col-md-10">#}
+{#                    <div class="form-group">#}
+{#                        {{ form.title|as_bootstrap }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row mb-3">#}
+{#                <label for="{{ form.content.id_for_label }}" class="col-md-2 col-form-label">Text</label>#}
+{#                <div class="col-md-10">#}
+{#                    <div class="form-group">#}
+{#                        {{ form.content|as_bootstrap }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row mb-3">#}
+{#                <label for="{{ form.tags.id_for_label }}" class="col-md-2 col-form-label">Tags</label>#}
+{#                <div class="col-md-10">#}
+{#                    <div class="form-group">#}
+{#                        {{ form.tags|as_bootstrap }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row">#}
+{#                <div class="col-md-2"></div>#}
+{#                <div class="col-md-10 ml-auto d-flex align-self-start">#}
+{#                    <button type="submit" class="btn btn-outline-dark">ASK!</button>#}
+{#                </div>#}
+{#            </div>#}
+{#            <br>#}
+{#        </form>#}
+{#    </div>#}
+{#</div>#}
+
+
+{% endblock %}
+
+
+

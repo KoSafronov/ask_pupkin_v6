@@ -1,0 +1,10 @@
+<div class="mt-4">
+    <h3>Best Members</h3>
+    <div>
+        <ul>
+            {% for member in best_members %}
+                <li><p><a class="link" href="#">{{ member }} ({{ member.rating }})</a></p></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
