@@ -18,31 +18,6 @@ from app.models import Question, Answer, Tag, Profile
 from core.settings import QUESTIONS_PER_PAGE, ANSWERS_PER_PAGE
 
 
-# Create your views here.
-# QUESTIONS = [
-#     {
-#         "id": i,
-#         "title": f"Question {i}",
-#         "text": F"This is question number {i}"
-#     } for i in range(200)
-# ]
-
-#
-# from django.shortcuts import render, redirect
-# from django.contrib import messages
-# from .forms import UserRegisterForm
-# def register(request):
-# 	if request.method == 'POST':
-#     	form = UserRegisterForm(request.POST)
-#     	if form.is_valid():
-#         	form.save()
-#         	username = form.cleaned_data.get('username')
-#         	messages.success(request, f'Создан аккаунт {username}!')
-#         	return redirect('blog-home')
-# 	else:
-#     	form = UserRegisterForm()
-# 	return render(request, 'users/register.html', {'form': form})
-
 
 def post_list_all(request):
     posts = Post.objects.filter(is_published=True)
@@ -55,14 +30,6 @@ def post_list_all(request):
         'paginator': paginator, 'page': page,
     })
 
-
-#
-# def PageNotFound(request, exception):
-#     return render(request, template_name='oops', status='404')
-#
-#
-# def handler500(request, exception):
-#     return render(request, template_name='oops', status=500)
 
 
 def paginate(items, request, *, per_page=5):
@@ -77,13 +44,6 @@ def paginate(items, request, *, per_page=5):
     return page_obj
 
 
-# def index(request):
-#     page_num = request.GET.get('page', 1)
-#     paginator = Paginator(QUESTIONS, 5, allow_empty_first_page=False)
-#     page_obj = paginator.page(page_num)
-#     return render(request, "index.html", {"questions": page_obj})
-
-
 def index(request):
     new_questions = list(Question.objects.new_questions())
     page_obj = paginate(new_questions, request, per_page=QUESTIONS_PER_PAGE)
@@ -95,13 +55,6 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-
-# def hot(request):
-#     questions = QUESTIONS[::-1]
-#     page_num = request.GET.get('page', 1)
-#     paginator = Paginator(questions, 5, allow_empty_first_page=False)
-#     page_obj = paginator.page(page_num)
-#     return render(request, "hot.html", {"questions": page_obj})
 
 
 def hot_questions(request):
@@ -116,23 +69,6 @@ def hot_questions(request):
 
     return render(request, 'hot_questions.html', context)
 
-
-#
-# @login_required(login_url="login")
-# def login(request):
-#     return render(request, "login.html")
-
-
-# def log_in(request):
-#     print(request.GET)
-#     print(request.POST)
-#     username = request.POST.get('username')
-#     password = request.POST.get('password')
-#     user = authenticate(username=username, password=password)
-#     if user:
-#         return redirect(reverse('index'))
-#     print('Failed to login')
-#     return render(request, "login.html")
 
 
 @require_http_methods(['GET', 'POST'])
@@ -158,30 +94,6 @@ def login(request):
     return render(request, 'login.html', context)
 
 
-# @require_http_methods(['GET', 'POST'])
-# @csrf_protect
-# def login(request):
-#     login_form = LoginForm()
-#     if request.method == 'POST':
-#         login_form = LoginForm(request.POST)
-#         if login_form.is_valid():
-#             user = auth.authenticate(request, **login_form.cleaned_data)
-#             if user:
-#                 auth.login(request, user)
-#                 redirect_to = request.GET.get('continue', reverse('index'))
-#                 return redirect(redirect_to)
-#
-#     context = {
-#         'form': login_form,
-#         'pop_tags': Tag.objects.get_pop_tags(),
-#         'best_members': Profile.objects.get_best_profiles(),
-#     }
-#
-#     return render(request, 'login.html', context)
-
-
-# def ask(request):
-#     return render(request, "ask.html")
 @login_required(login_url='login', redirect_field_name='continue')
 @require_http_methods(['GET', 'POST'])
 @csrf_protect
@@ -253,11 +165,6 @@ def logout(request):
     auth.logout(request)
     return redirect(request.META.get('index', reverse('index')))
 
-
-# def question(request, question_id):
-#     item = QUESTIONS[question_id]
-#     return render(request, "question_detail.html", {"question": item})
-
 def question(request, question_id):
     question = Question.objects.get_question(question_id)
     answers = list(Answer.objects.get_answers(question_id))
@@ -285,58 +192,6 @@ def oops_404(request):
     return render(request, "layouts/404_oops.html")
 
 
-# @login_required(login_url='login', redirect_field_name='continue')
-# @require_POST
-# @csrf_protect
-# def answer(request, question_id):
-#     question = Question.objects.get_question(question_id)
-#     answer_form = AnswerForm(request.user, question, request.POST)
-#     if answer_form.is_valid():
-#         answer = answer_form.save()
-#         answers_count = Answer.objects.get_answers(question_id).count()
-#         return redirect(
-#             reverse('question', kwargs={'question_id': question_id})
-#             + f'?page={math.ceil(answers_count / ANSWERS_PER_PAGE)}'
-#             + f'#{answer.id}'
-#         )
-
-# @login_required(login_url='login', redirect_field_name='continue')
-# @require_POST
-# @csrf_protect
-# def answer(request, question_id):
-#     ws_channel_name = f'question_{question_id}'
-#
-#     question = Question.objects.get_question(question_id)
-#     answer_form = AnswerForm(request.user, question, request.POST)
-#     if answer_form.is_valid():
-#         answer = answer_form.save()
-#         answers_count = Answer.objects.get_answers(question_id).count()
-#
-#         api_url = settings.CENTRIFUGO_API_URL
-#         api_key = settings.CENTRIFUGO_API_KEY
-#
-#         body = model_to_dict(answer)
-#         body |= {'avatar_url': request.user.profile.avatar.url}
-#
-#         headers = {
-#             'Content-Type': 'application/json',
-#             'Authorization': f'apikey {api_key}'
-#         }
-#         data = {
-#             'method': 'publish',
-#             'params': {
-#                 'channel': ws_channel_name,
-#                 'data': body,
-#             }
-#         }
-#         response = requests.post(api_url, headers=headers, data=json.dumps(data))
-#
-#         if response.status_code == 200:
-#             return redirect(
-#                 reverse('question', kwargs={'question_id': question_id})
-#                 + f'?page={math.ceil(answers_count / ANSWERS_PER_PAGE)}'
-#                 + f'#{answer.id}'
-#             )
 
 @login_required(login_url='login', redirect_field_name='continue')
 @require_POST
@@ -361,21 +216,6 @@ def answer(request, question_id):
             'form': answer_form,
         })
 
-
-# @login_required(login_url='login', redirect_field_name='continue')
-# @require_POST
-# @csrf_protect
-# def correct(request):
-#     body = json.loads(request.body)
-#
-#     correct_form = CorrectForm(body)
-#     if correct_form.is_valid():
-#         answer = correct_form.save()
-#         body['is_correct'] = answer.is_correct
-#         return JsonResponse(body)
-#
-#     body['is_correct'] = False
-#     return JsonResponse(body)
 
 
 from django.http import JsonResponse
@@ -464,20 +304,6 @@ def register(request):
     return render(request, 'register.html', context)
 
 
-# def register(request):
-#     if request.method == 'POST':
-#         form = RegistrationForm(request.POST)
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             user.set_password(form.cleaned_data['password'])
-#             user.save()
-#             login(request, user)
-#             return redirect('home')  # или другая страница после успешной регистрации
-#     else:
-#         form = RegistrationForm()
-#     return render(request, 'registration/register.html', {'form': form})
-#
-
 
 def questions_by_tag(request, tag_name):
     questions = list(Question.objects.questions_by_tag(tag_name))
@@ -493,25 +319,6 @@ def questions_by_tag(request, tag_name):
     return render(request, 'tag.html', context)
     # return render(request, 'tag_page.html', context)
 
-
-# @login_required(login_url='login', redirect_field_name='continue')
-# @require_http_methods(['GET', 'POST'])
-# @csrf_protect
-# def profile(request):
-#     profile_form = ProfileForm(initial=model_to_dict(request.user))
-#     if request.method == 'POST':
-#         profile_form = ProfileForm(request.POST, files=request.FILES, instance=request.user)
-#         if profile_form.is_valid():
-#             profile_form.save()
-#             return redirect(reverse('profile'))
-#
-#     context = {
-#         'form': profile_form,
-#         'pop_tags': Tag.objects.get_pop_tags(),
-#         'best_members': Profile.objects.get_best_profiles(),
-#     }
-#
-#     return render(request, 'profile.html', context)
 
 @login_required(login_url='login', redirect_field_name='continue')
 @require_http_methods(['GET', 'POST'])
@@ -539,40 +346,6 @@ def profile(request):
 
     return render(request, 'settings.html', context)
 
-
-#
-# from django.shortcuts import render, redirect
-# from django.contrib.auth.decorators import login_required
-# from .forms import UserSettingsForm
-#
-# @login_required
-# def edit_profile(request):
-#     if request.method == 'POST':
-#         form = UserSettingsForm(request.POST, request.FILES, instance=request.user)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('settings')  # перенаправление на страницу профиля или другую страницу
-#     else:
-#         form = UserSettingsForm(instance=request.user)
-#     return render(request, 'settings', {'form': form})
-
-
-# from django.shortcuts import render, redirect
-# from django.contrib.auth.decorators import login_required
-# from django.contrib import messages
-# from .forms import UsernameChangeForm
-#
-# @login_required
-# def change_username(request):
-#     if request.method == 'POST':
-#         form = UsernameChangeForm(request.POST, instance=request.user)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Your username has been updated!')
-#             return redirect('profile')  # перенаправление на страницу профиля или другую страницу
-#     else:
-#         form = UsernameChangeForm(instance=request.user)
-#     return render(request, 'change_username.html', {'form': form})
 
 
 from django.shortcuts import render, redirect
@@ -610,7 +383,7 @@ def ask_question(request, query=''):
         if form.is_valid():
             form.save()
             return redirect(
-                'index')  # Замените 'some_page' на URL-адрес, на который нужно перенаправить после публикации вопроса
+                'index')  
     else:
         form = AskForm(request.user, initial={'title': query})
     return render(request, 'ask.html', {'form': form})

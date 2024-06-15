@@ -14,9 +14,7 @@
             <a class="link" href="{% url "index" %}" style="margin-top: auto; margin-bottom: 10px">All Questions</a>
             {#            <a href="/">New Questions</a>#}
         </div>
-{#        {% for question in questions %}#}
-{#            {% include "layouts/question.html" %}#}
-{#        {% endfor %}#}
+
         {% for question in questions %}
             {% include "components/question.html" with item=question %}
         {% endfor %}
