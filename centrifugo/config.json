@@ -1,0 +1,18 @@
+{
+    "v3_use_offset": true,
+    "secret": "your_secret_key",
+    "api_key": "your_api_key",
+    "admin_password": "your_admin_password",
+    "admin_secret": "your_admin_secret"
+}
+
+<!-- Включите JS библиотеку Centrifugo -->
+<script src="https://cdn.jsdelivr.net/npm/centrifuge@2.8.4/dist/centrifuge.min.js"></script>
+<script>
+    const centrifuge = new Centrifuge('ws://your_centrifugo_server/connection/websocket');
+    centrifuge.subscribe("question_{{ question.id }}", function(message) {
+        // Обработайте новое сообщение
+        console.log(message);
+    });
+    centrifuge.connect();
+</script>
