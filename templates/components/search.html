@@ -17,15 +17,41 @@
 {#{% endblock %}#}
 
 
+{##}
+{#{% block content %}#}
+{#    <form class="d-flex" action="{% url 'search' %}" method="get">#}
+{#        <input class="form-control me-2" type="text" name="q" placeholder="Enter your question...">#}
+{#        <button class="btn btn-success" style="margin-left: 10px;" type="submit">ASK</button>#}
+{#    </form>#}
+{##}
+{#{% endblock %}#}
 
-{% block content %}
-    <form class="d-flex" action="{% url 'search' %}" method="get">
-        <input class="form-control me-2" type="text" name="q" placeholder="Enter your question...">
-        <button class="btn btn-success" style="margin-left: 10px;" type="submit">ASK</button>
-    </form>
+{% block content2 %}
+    <div>
+    <input type="text" id="search-input" placeholder="Search...">
+    <div id="search-results"></div>
+</div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#search-input").on("input", function() {
+            const query = $(this).val();
+            if (query.length > 2) {
+                $.ajax({
+                    url: "{% url 'search' %}",
+                    data: {
+                        q: query
+                    },
+                    success: function(data) {
+                        $("#search-results").html(data);
+                    }
+                });
+            }
+        });
+    });
+</script>
 {% endblock %}
-
 
 
 

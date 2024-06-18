@@ -372,7 +372,7 @@ from .forms import AskForm
 from .models import Question
 
 
-def search(request):
+def search_ans(request):
     query = request.GET.get('q')
     return redirect('ask_question_with_query', query=query)
 
@@ -420,3 +420,35 @@ def like(request, component, component_id):
         return JsonResponse({'rating': rating}, status=200)
     return JsonResponse({'error': 'Invalid form data'}, status=400)
 
+# views.py
+import requests
+from django.conf import settings
+
+def send_to_centrifugo(channel, data):
+    url = f"{settings.CENTRIFUGO_URL}/api"
+    headers = {
+        "Authorization": f"apikey {settings.CENTRIFUGO_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "method": "publish",
+        "params": {
+            "channel": channel,
+            "data": data
+        }
+    }
+    requests.post(url, json=payload, headers=headers)
+
+def add_answer(request, question_id):
+    # Your existing code to save the answer
+    send_to_centrifugo(f"question_{question_id}", {"message": "New answer added"})
+
+
+# views.py
+from django.contrib.postgres.search import SearchQuery, SearchRank
+
+def search_all(request):
+    query = request.GET.get('q')
+    search_query = SearchQuery(query)
+    results = Question.objects.annotate(rank=SearchRank(F('search_vector'), search_query)).filter(rank__gte=0.3).order_by('-rank')
+    return render(request, 'search_results.html', {'results': results})

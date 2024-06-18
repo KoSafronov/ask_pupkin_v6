@@ -154,6 +154,13 @@ STATICFILES_DIRS = [
     BASE_DIR / 'uploads',
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+    }
+}
+
 # Default settings
 BOOTSTRAP5 = {
 

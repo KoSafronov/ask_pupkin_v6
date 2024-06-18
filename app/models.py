@@ -35,7 +35,11 @@ class QuestionManager(models.Manager):
     def questions_by_tag(self, tag):
         return self.filter(tags__name=tag)
 
+from django.contrib.postgres.indexes import GinIndex
 
+from django.contrib.postgres.search import SearchVector
+
+from django.contrib.postgres.indexes import GinIndex
 class Question(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
@@ -48,10 +52,23 @@ class Question(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = QuestionManager()
+    search_vector = SearchVector('title', 'content')
 
     def __str__(self):
         return self.title
 
+
+    class Meta:
+        indexes = [GinIndex(fields=['search_vector'])]  # Индекс для полнотекстового поиска
+
+
+
+
+# Add index
+from django.contrib.postgres.indexes import GinIndex
+
+class Meta:
+    indexes = [GinIndex(fields=['search_vector'])]
 
 class AnswerManager(models.Manager):
     def get_answer(self, answer_id):

@@ -18,7 +18,7 @@ urlpatterns = [
     path('404/', views.oops_404, name='oops'),
 
     path('ask/', views.ask_question, name='ask_question'),
-    path('search/', views.search, name='search'),
+    path('search/', views.search_ans, name='search'),
     path('ask/<str:query>/', views.ask_question, name='ask_question_with_query'),
     path('like/<str:component>/<int:component_id>/', views.like, name='like'),
     path('correct/', views.correct, name='correct'),
