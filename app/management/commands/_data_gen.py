@@ -3,6 +3,7 @@ from app.models import Question, User, Profile, Tag, Answer, QuestionVote, Answe
 from django.db.models import Max
 from django.conf import settings
 
+
 from itertools import islice
 import random
 import os
@@ -53,7 +54,7 @@ def question_generator(fake, ratio):
             user_id=random.randint(1, max_user_id),
             title=fake.sentence(nb_words=random.randint(3, 10)),
             content=fake.text(max_nb_chars=random.randint(30, 100)),
-            score=random.randint(-10, 100),
+            score=random.randint(0, 500),
             answers_count=random.randint(0, 100),
         )
 
@@ -68,7 +69,7 @@ def answer_generator(fake, ratio):
             question_id=random.randint(1, max_question_id),
             content=fake.text(max_nb_chars=random.randint(30, 100)),
             is_correct=(not random.randint(0, 3)),
-            score=random.randint(-10, 100),
+            score=random.randint(0, 500),
         )
 
 

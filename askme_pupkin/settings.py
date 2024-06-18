@@ -25,9 +25,14 @@ SECRET_KEY = 'django-insecure-9na8o1e^!97rp@!3!-m*f)_jar=6%j5f@+nx)%l!5sw!hco#u1
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#
+# ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1', '0.0.0.0']
 
-ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1']
-
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'askme.com'
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -56,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'askme_pupkin.urls'
@@ -79,6 +85,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'askme_pupkin.wsgi.application'
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8080',
+    'http://127.0.0.1:8001',
+    'http://127.0.0.1:8081',
+    'http://127.0.0.1:8000',
+    'http://127.0.0.1',
+    # добавьте другие доверенные источники, если необходимо
+]
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -127,6 +142,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+# STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
