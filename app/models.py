@@ -40,6 +40,14 @@ from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVector
 
 from django.contrib.postgres.indexes import GinIndex
+
+#/tmp/crontab.NkMSvm/crontab
+#/tmp/crontab.Cizcn6/crontab
+from django.contrib.auth.models import User
+from django.db import models
+from django.contrib.postgres.search import SearchVectorField
+from django.contrib.postgres.indexes import GinIndex
+
 class Question(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
@@ -52,14 +60,14 @@ class Question(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = QuestionManager()
-    search_vector = SearchVector('title', 'content')
+    search_vector = SearchVectorField(null=True, blank=True)
 
     def __str__(self):
         return self.title
 
-
     class Meta:
-        indexes = [GinIndex(fields=['search_vector'])]  # Индекс для полнотекстового поиска
+        indexes = [GinIndex(fields=['search_vector'])]
+
 
 
 

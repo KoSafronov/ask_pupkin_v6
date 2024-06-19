@@ -1,7 +1,6 @@
 First test
 Отдача статического документа напрямую через Nginx
 
-
 Finished 1000 requests
 
 Document Path:          /static/sample.html

@@ -128,14 +128,14 @@ def settings1(request):
         'pop_tags': Tag.objects.get_pop_tags(),
         'best_members': Profile.objects.get_best_profiles(),
     }
-    # return render(request, "settings.html", context)
-    return render(request, 'settings.html', context)
+    # return render(request, "settings_usr.html", context)
+    return render(request, 'settings_usr.html', context)
 
 
 @login_required(login_url='login', redirect_field_name='continue')
 @require_http_methods(['GET', 'POST'])
 @csrf_protect
-def settings(request):
+def settings_usr(request):
     profile_form = ProfileForm(request.user, initial={
         'username': request.user.username,
         'email': request.user.email,
@@ -149,7 +149,7 @@ def settings(request):
         )
         if profile_form.is_valid():
             profile_form.save()
-            return redirect(reverse('settings'))
+            return redirect(reverse('settings_usr'))
 
     context = {
         'form': profile_form,
@@ -157,7 +157,7 @@ def settings(request):
         'best_members': Profile.objects.get_best_profiles(),
     }
 
-    return render(request, 'settings.html', context)
+    return render(request, 'settings_usr.html', context)
 
 
 @login_required(login_url='login', redirect_field_name='continue')
@@ -337,14 +337,15 @@ def profile(request):
         )
         if profile_form.is_valid():
             profile_form.save()
-            return redirect(reverse('settings'))
+            return redirect(reverse('settings_usr'))
 
     context = {
         'form': profile_form,
-        **get_top_lists(),
+        'pop_tags': Tag.objects.get_pop_tags(),
+        'best_members': Profile.objects.get_best_profiles(),
     }
 
-    return render(request, 'settings.html', context)
+    return render(request, 'settings_usr.html', context)
 
 
 
@@ -364,7 +365,7 @@ def profile_settings(request):
     else:
         form = ProfileForm(user, instance=user)
 
-    return render(request, 'settings.html', {'form': form})
+    return render(request, 'settings_usr.html', {'form': form})
 
 
 from django.shortcuts import render, redirect
@@ -423,6 +424,7 @@ def like(request, component, component_id):
 # views.py
 import requests
 from django.conf import settings
+
 
 def send_to_centrifugo(channel, data):
     url = f"{settings.CENTRIFUGO_URL}/api"
